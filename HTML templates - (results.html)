@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+</head>
+<body>
+    <h1>Quiz Results</h1>
+    <p>Your Score: {{ score }}/{{ total }}</p>
+    
+    <ul>
+        {% for index, question in enumerate(quiz_data['questions']) %}
+            <li>
+                <h3>{{ question['question'] }}</h3>
+                <p><strong>Your Answer:</strong> {{ request.form.get('question-' + str(index)) }}</p>
+                <p><strong>Correct Answer:</strong> {{ question['answer'] }}</p>
+                {% if correct_answers[index] %}
+                    <p style="color: green;">Correct!</p>
+                {% else %}
+                    <p style="color: red;">Incorrect</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <a href="{{ url_for('quiz') }}">Try Again</a>
+</body>
+</html>
